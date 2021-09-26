@@ -1,0 +1,32 @@
+
+for count 0 	 old distortion is=  0.000000 	 and new distortion is=  2.204213
+
+for count 1  old distortion is=  2.204213 	 and new distortion is=  2.246619 and difference  is 0.042405
+
+for count 2  old distortion is=  2.246619 	 and new distortion is=  2.259501 and difference  is 0.012882
+
+for count 3  old distortion is=  2.259501 	 and new distortion is=  2.268004 and difference  is 0.008503
+
+for count 4  old distortion is=  2.268004 	 and new distortion is=  2.269397 and difference  is 0.001393
+
+for count 5  old distortion is=  2.269397 	 and new distortion is=  2.269546 and difference  is 0.000150
+
+for count 6  old distortion is=  2.269546 	 and new distortion is=  2.268529 and difference  is 0.001017
+
+for count 7  old distortion is=  2.268529 	 and new distortion is=  2.269556 and difference  is 0.001027
+
+for count 8  old distortion is=  2.269556 	 and new distortion is=  2.268376 and difference  is 0.001180
+
+for count 9  old distortion is=  2.268376 	 and new distortion is=  2.268174 and difference  is 0.000202
+
+for count 10  old distortion is=  2.268174 	 and new distortion is=  2.268096 and difference  is 0.000078
+
+for count 11  old distortion is=  2.268096 	 and new distortion is=  2.268126 and difference  is 0.000030
+
+for count 12  old distortion is=  2.268126 	 and new distortion is=  2.268113 and difference  is 0.000013
+
+for count 13  old distortion is=  2.268113 	 and new distortion is=  2.268159 and difference  is 0.000046
+
+for count 14  old distortion is=  2.268159 	 and new distortion is=  2.268159 and difference  is 0.000000
+
+final  distortion  D is =  2.268159  
