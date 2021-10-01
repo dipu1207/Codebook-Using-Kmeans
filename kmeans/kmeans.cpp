@@ -5,6 +5,8 @@
 #include<stdio.h>
 #include<math.h>
 
+
+
 // create a array of size 6340 by 12 and read the value of universe.txt in it
 long double universeArray[6340][12];
 long double codebook[8][12];
@@ -14,8 +16,10 @@ long double oldDistortion=0.0;
 int universe_size=6340;
 int codebook_size=8;
 long double delta=0.000001;
+long double finalDistortion=0.0;
 int   region_size[8];//this array will store the no of elements we have in each row of regions array
 FILE *outprint=fopen("distortions.txt","w");
+
 //read universe
 void readUniverse()
 {
@@ -77,7 +81,6 @@ void fillInitialcodebook()
 		{ 
 			codebook[i][j]=universeArray[index][j];
 		}
-		
 	}*/
 
 }
@@ -88,7 +91,7 @@ long double calculateTokhura(long double tempUniverse[],long double tempCodebook
 	for(int i=0;i<12;i++)
 		distance+=tokhuraWeight[i]*((tempUniverse[i] - tempCodebook[i])*(tempUniverse[i]- tempCodebook[i]));
 		
-	distance/=12;
+	//distance/=12;
 	return distance;
 }
 
@@ -108,8 +111,8 @@ void assign_regions()
 	{
 		
 		long double currdistance=0.0;
-		long double mindistance=16789.0;
-		int index=-1;      // to store which region has been assigned to vector at index i of universe
+		long double mindistance=99999.0;
+		int index=0;      // to store which region has been assigned to vector at index i of universe
 		
 		//here i call a function to calculate tokhura distane of each vector of universe with all vectors of codebook and the codevector with min distance will be the region
 		//and i will increment count for that region array
@@ -148,20 +151,21 @@ long double totalDistortion()
 {
 	long double avgDistortion=0.0;
 	//here we will take all vectors of a region and find centroid and then update code book
+	long double codevector[12];
 	for(int itrCodebook=0;itrCodebook<codebook_size;itrCodebook++)
 	{
 		//store codebook vector in array
-		long double codevector[12];
 		for(int i=0;i<12;i++)
 			{ 
 				codevector[i]=codebook[itrCodebook][i];
 		    }
 	   //now read all vector whose index is in array region[itrCodebook];
+		long double regionvector[12];
 		for(int col=0;col<region_size[itrCodebook];col++)
 		{
-			long double regionvector[12];
+			int x=regions[itrCodebook][col];
 			for(int i=0;i<12;i++)
-				regionvector[i]=universeArray[col][i];
+				regionvector[i]=universeArray[x][i];
 
 			avgDistortion+=calculateTokhura(regionvector,codevector);
 
@@ -171,6 +175,7 @@ long double totalDistortion()
 	
 	
     avgDistortion/=universe_size;	
+	finalDistortion=avgDistortion;
 	return avgDistortion;
 }
 
@@ -266,33 +271,25 @@ int _tmain(int argc, _TCHAR* argv[])
 	//fill initial codebook of size 8 with  avg of jump no. of vectors 
 	fillInitialcodebook();
 	FILE *code=fopen("codebook.txt","w");
-	fprintf(code,"initial code book");
-	  fprintf(code,"\n");
-
-	for(int i=0;i<codebook_size;i++)
-		{
-		  for(int j=0;j<12;j++)
-			   {
-			      fprintf(code,"%lf ",codebook[i][j]);
-			   }
-			   fprintf(code,"\n");
-			}
-	  fprintf(code,"\n");
+	
 	//now call function kmeans 
 	Kmeans();
 	//now we write final codebook in a txt file
 	
 	fprintf(code,"final code book") ;
-	  fprintf(code,"\n");
+	 printf("\n\n final code book\n\n") ;
+	fprintf(code,"\n");
 	for(int i=0;i<codebook_size;i++)
 		{
 		  for(int j=0;j<12;j++)
 			   {
+				   printf("%lf ",codebook[i][j]);
 			      fprintf(code,"%lf ",codebook[i][j]);
 			   }
 			   fprintf(code,"\n");
+			   printf("\n");
 			}
-		
+		 printf("\n\n total distortion\t%Lf\n\n\n",finalDistortion);
 	return 0;
 }
 
